@@ -11,7 +11,8 @@
     "jest": "^24.8.0"
   },
   "scripts": {
-    "test": "jest"
+    "test": "jest",
+    "testw": "jest --watch"
   },
   "jest": {
     "transform": {
