@@ -1,11 +1,21 @@
 {
+  "type": "module",
   "dependencies": {
     "ramda": "^0.26.1"
   },
   "devDependencies": {
+    "@babel/cli": "^7.4.4",
+    "@babel/core": "^7.4.5",
+    "@babel/preset-env": "^7.4.5",
+    "babel-jest": "^24.8.0",
     "jest": "^24.8.0"
   },
   "scripts": {
     "test": "jest"
+  },
+  "jest": {
+    "transform": {
+      "^.+\\.jsx?$": "babel-jest"
+    }
   }
 }
