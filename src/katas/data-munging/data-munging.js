@@ -26,3 +26,17 @@ export const loadTextTable = (path) =>
 export const loadTable =
   R.compose(createTable, loadTextTable)
 
+export const tableHeader = R.head
+export const tableRows = R.tail
+export const day = row => row[0]
+export const maxTemp = row => parseInt(row[1])
+export const minTemp = row => parseInt(row[2])
+export const deltaTemp = (t1, t2) => Math.abs(t1 - t2)
+export const deltaTempRow = (row) => deltaTemp(maxTemp(row), minTemp(row))
+
+const DEFAULT_WEATHER_ROW = [0, 1000, -1000] // day, maxTemp, minTemp
+export const minTempSpreadDay = (table) =>
+  day(R.reduce((minRow, row) =>
+    deltaTempRow(minRow) < deltaTempRow(row) ? minRow : row,
+    DEFAULT_WEATHER_ROW,
+    tableRows(table)))
