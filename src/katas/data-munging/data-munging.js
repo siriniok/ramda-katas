@@ -2,6 +2,8 @@ import { readFileSync } from 'fs'
 import * as R from 'ramda'
 import * as U from '../utils'
 
+// Source: http://codekata.com/kata/kata04-data-munging/
+//
 // Part One: Weather Data
 //
 // In weather.dat you’ll find daily weather data for Morristown, NJ
@@ -49,3 +51,9 @@ export const minTempSpreadDay = (table) =>
 // 79 goals against opponents, and had 36 goals scored against them). Write
 // a program to print the name of the team with the smallest difference in
 // ‘for’ and ‘against’ goals.
+
+// Part Three: DRY Fusion
+//
+// Take the two programs written previously and factor out as much common
+// code as possible, leaving you with two smaller programs and some kind of
+// shared functionality.
