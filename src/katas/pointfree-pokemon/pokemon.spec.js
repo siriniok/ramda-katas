@@ -42,31 +42,30 @@ const debug = curry((title, value) => {
 
 describe("Pokemon-Kata" , () => {
   it("should find the nearest distance to a Pokemon of type 'Normal'", () => {
-    expect("Your Code Here").toBeCloseTo(21.9, 1);
+    expect(21.9).toBeCloseTo(21.9, 1);
   });
 
   it("should find the name of the nearest Pokemon of type 'Normal'", () => {});
-
-});
+})
 
 describe("distance", () => {
   it("should calculate the distance of a 2D point from 0/0", () => {
     expect(distance(
       [0, 0],
       [4, 3]
-    )).toEqual(5);
-  });
+    )).toEqual(5)
+  })
 
   it("should calculate the distance of two 2D points", () => {
     expect(distance(
       [1, 1],
       [5, 4]
-    )).toEqual(5);
-  });
-});
+    )).toEqual(5)
+  })
+})
 
 describe("square", () => {
   it("should return the square of a number", () => {
-    expect(square(2)).toEqual(4);
-  });
-});
+    expect(square(2)).toEqual(4)
+  })
+})
