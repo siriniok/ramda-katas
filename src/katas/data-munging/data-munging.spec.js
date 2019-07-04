@@ -128,9 +128,15 @@ describe('deltaTempRow', () => {
 })
 
 describe('minTempSpreadDay', () => {
-  describe('given table', () => {
+  describe('given test table', () => {
     it('returns a day with min temp spread', () => {
       expect(minTempSpreadDay(TABLE)).toEqual('20')
+    })
+  })
+
+  describe('given real-world table', () => {
+    it('returns a day with min temp spread', () => {
+      expect(minTempSpreadDay(loadTable(WEATHER_DATA_PATH))).toEqual('14')
     })
   })
 })
