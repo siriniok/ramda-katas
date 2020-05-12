@@ -22,6 +22,11 @@
     }
   },
   "standard": {
-    "globals": [ "describe", "it", "expect"]
+    "env": [
+      "jest",
+      "es2020",
+      "browser",
+      "node"
+    ]
   }
 }
