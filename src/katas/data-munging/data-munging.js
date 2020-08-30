@@ -1,6 +1,7 @@
 import { readFileSync } from 'fs'
 import * as R from 'ramda'
 import * as U from '../utils'
+import log from '../logging'
 
 // Source: http://codekata.com/kata/kata04-data-munging/
 //
@@ -11,7 +12,7 @@ import * as U from '../utils'
 // the day number (column one) with the smallest temperature spread
 // (the maximum temperature is the 2nd column, the minimum the 3rd column).
 
-export const createTable = (textTable) =>
+export const createTable = textTable =>
   R.isEmpty(textTable)
     ? []
     : parseTable(textTable)
@@ -22,7 +23,7 @@ const parseTable =
       R.compose(R.filter(U.isNotEmpty), R.split(' '))),
     R.compose(R.filter(U.isNotEmpty), R.split('\n')))
 
-export const loadTextTable = (path) =>
+export const loadTextTable = path =>
   readFileSync(path, 'utf8')
 
 export const loadTable =
@@ -34,14 +35,19 @@ export const day = row => row[0]
 export const maxTemp = row => parseInt(row[1])
 export const minTemp = row => parseInt(row[2])
 export const deltaTemp = (t1, t2) => Math.abs(t1 - t2)
-export const deltaTempRow = (row) => deltaTemp(maxTemp(row), minTemp(row))
+export const deltaTempRow = row => deltaTemp(maxTemp(row), minTemp(row))
 
 const DEFAULT_WEATHER_ROW = [0, 1000, -1000] // day, maxTemp, minTemp
-export const minTempSpreadDay = (table) =>
-  day(R.reduce((minRow, row) =>
-    deltaTempRow(minRow) < deltaTempRow(row) ? minRow : row,
-    DEFAULT_WEATHER_ROW,
-    tableRows(table)))
+
+export const minTempSpreadDay = table =>
+  day(
+    R.reduce(
+      (minRow, row) =>
+        deltaTempRow(minRow) < deltaTempRow(row) ? minRow : row,
+      DEFAULT_WEATHER_ROW,
+      tableRows(table)
+    )
+  )
 
 // Part Two: Soccer League Table
 //
@@ -51,6 +57,20 @@ export const minTempSpreadDay = (table) =>
 // 79 goals against opponents, and had 36 goals scored against them). Write
 // a program to print the name of the team with the smallest difference in
 // ‘for’ and ‘against’ goals.
+
+export const createFootballTable = textTable =>
+  R.isEmpty(textTable) ? [] : parseFootballTable(textTable)
+
+const parseFootballTable = R.compose(
+  R.filter(U.isNotEmpty),
+  R.map(R.filter(R.compose(R.isEmpty, R.match('-')))),
+  R.map(R.compose(R.map(R.trim), R.filter(U.isNotEmpty), R.split('  '))),
+  R.compose(R.filter(U.isNotEmpty), R.split('\n'))
+)
+
+export const loadFootballTextTable = loadTextTable
+export const loadFootballTable =
+  R.compose(createFootballTable, loadFootballTextTable)
 
 // Part Three: DRY Fusion
 //

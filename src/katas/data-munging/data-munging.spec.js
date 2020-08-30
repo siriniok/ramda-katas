@@ -9,15 +9,18 @@ import {
   minTemp,
   deltaTemp,
   deltaTempRow,
-  minTempSpreadDay
+  minTempSpreadDay,
+  createFootballTable,
+  loadFootballTextTable,
+  loadFootballTable
 } from './data-munging'
 
 const TEXT_TABLE = '  Dy MxT   MnT\n   1  82*   64\n  10  72    59*\n  20  80    68\n'
 const TABLE = [
   ['Dy', 'MxT', 'MnT'],
-  ['1',  '82*', '64'],
-  ['10', '72',  '59*'],
-  ['20', '80',  '68']
+  ['1', '82*', '64'],
+  ['10', '72', '59*'],
+  ['20', '80', '68']
 ]
 
 const TEST_DATA_PATH = 'src/katas/data-munging/test.dat'
@@ -65,9 +68,9 @@ describe('tableRows', () => {
   describe('given table', () => {
     it('returns table rows', () => {
       expect(tableRows(TABLE)).toEqual([
-        ['1',  '82*', '64'],
-        ['10', '72',  '59*'],
-        ['20', '80',  '68']
+        ['1', '82*', '64'],
+        ['10', '72', '59*'],
+        ['20', '80', '68']
       ])
     })
   })
@@ -137,6 +140,55 @@ describe('minTempSpreadDay', () => {
   describe('given real-world table', () => {
     it('returns a day with min temp spread', () => {
       expect(minTempSpreadDay(loadTable(WEATHER_DATA_PATH))).toEqual('14')
+    })
+  })
+})
+
+const FOOTBALL_TEXT_TABLE =
+  `       Team            P     F      A
+    1. Arsenal         38    79  -  36
+    3. Manchester_U    38    87  -  45
+   -----------------------------------
+   20. Leicester       38    20    30\n`
+
+const FOOTBALL_TABLE = {
+  'Team': ['1. Arsenal', '3. Manchester_U', '20. Leicester'],
+  'P': ['38', '38', '38'],
+  'F': ['79', '87', '20'],
+  'A': ['36', '45', '30']
+}
+
+const FOOTBALL_TEST_DATA_PATH = 'src/katas/data-munging/football-test.dat'
+const FOOTBALL_DATA_PATH = 'src/katas/data-munging/football.dat'
+
+describe('createFootballTable', () => {
+  describe('given empty text table', () => {
+    it('returns empty football table', () => {
+      expect(createFootballTable('')).toEqual([])
+    })
+  })
+
+  describe('given text table', () => {
+    it('returns football table', () => {
+      expect(createFootballTable(FOOTBALL_TEXT_TABLE)).toEqual(FOOTBALL_TABLE)
+    })
+  })
+})
+
+describe('loadFootballTextTable', () => {
+  describe('given football text table file path', () => {
+    it('returns football text table', () => {
+      expect(loadFootballTextTable(FOOTBALL_TEST_DATA_PATH))
+        .toEqual(FOOTBALL_TEXT_TABLE)
+    })
+  })
+})
+
+describe('loadFootballTable', () => {
+  describe('given football text table file path', () => {
+    it('returns football table', () => {
+      expect(loadFootballTable(FOOTBALL_TEST_DATA_PATH))
+        .toEqual(FOOTBALL_TABLE)
     })
   })
 })
